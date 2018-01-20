@@ -9,6 +9,8 @@ from urllib.request import Request, urlopen
 
 from flask import Flask, request
 
+puns = csv.reader(open('puns.csv'), delimiter = '\n')
+
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
@@ -18,19 +20,31 @@ def webhook():
   if data['sender_type'] != 'bot':
     inputString = data['text']
     words = inputString.lower().split(" ")
-    puns = open('puns.csv')
+    punHolder = []
+
     for line in puns:
-      tag=line.split(',')
-      for w in words:
-        if w in tag:
-          msg = tag[1]
-          time.sleep(2)
-          send_message(msg)
-          if len(tag)==3:
-            msg = tag[2]
-            time.sleep(2)
-            send_message(msg)
-          break
+  punHolder.append(line[0].split(','))
+
+tagHolder = [row[0] for row in punHolder]
+
+for tag in punHolder:
+  if tag[0] in words:
+    if tagHolder.count(tag[0]) > 1:
+      indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
+      rando = random.randint(0,len(indexes) - 1)
+      index = indexes[rando]
+      print(punHolder[index][1])
+      if len(punHolder[index]) == 3:
+        print(punHolder[index][2])
+      break
+    else:
+      msg = tag[1]
+      print(msg)
+      if len(tag) == 3:
+        msg = tag[2]
+        print(msg)
+
+
   return "ok", 200
 
 def send_message(msg):
