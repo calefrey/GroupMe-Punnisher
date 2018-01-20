@@ -33,21 +33,22 @@ for tag in punHolder:
       indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
       rando = random.randint(0,len(indexes) - 1)
       index = indexes[rando]
-      print(punHolder[index][1])
+      send_message(punHolder[index][1])
       if len(punHolder[index]) == 3:
-        print(punHolder[index][2])
+        send_message(punHolder[index][2])
       break
     else:
       msg = tag[1]
-      print(msg)
+      send_message(msg)
       if len(tag) == 3:
         msg = tag[2]
-        print(msg)
+        send_message(msg)
 
 
   return "ok", 200
 
 def send_message(msg):
+  time.sleep(2)
   url  = 'https://api.groupme.com/v3/bots/post'
 
   data = {
