@@ -16,9 +16,11 @@ for tag in punHolder:
 	if tag[0] in words:
 		if tagHolder.count(tag[0]) > 1:
 			indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
-			print(indexes)
 			rando = random.randint(0,len(indexes) - 1)
-			print(punHolder[indexes[rando]][1])
+			index = indexes[rando]
+			print(punHolder[index][1])
+			if len(punHolder[index]) == 3:
+				print(punHolder[index][2])
 			break
 		else:
 			msg = tag[1]
