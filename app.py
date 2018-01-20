@@ -10,8 +10,6 @@ from urllib.request import Request, urlopen
 
 from flask import Flask, request
 
-puns = csv.reader(open('puns.csv'), delimiter = '\n')
-
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
@@ -21,6 +19,7 @@ def webhook():
   if data['sender_type'] != 'bot':
     inputString = data['text']
     words = inputString.lower().split(" ")
+    puns = csv.reader(open('puns.csv'), delimiter = '\n')
     punHolder = []
 
     for line in puns:
@@ -57,10 +56,7 @@ def send_message(msg):
          }
   request = Request(url, urlencode(data).encode())
   json = urlopen(request).read().decode()
-  
-#@app.route('/', methods=['GET'])
-def home():
-  return "You have been PUNNED!"
+
 def log(msg):
   print(str(msg))
   sys.stdout.flush()
