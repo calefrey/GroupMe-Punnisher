@@ -43,7 +43,7 @@ def send_message(msg):
   request = Request(url, urlencode(data).encode())
   json = urlopen(request).read().decode()
   
-@app.route('/home', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
   return "It worked"
 def log(msg):
