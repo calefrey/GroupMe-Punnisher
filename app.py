@@ -44,7 +44,7 @@ def send_message(msg):
   json = urlopen(request).read().decode()
   
 @app.route('/home', methods=['GET'])
-def home:
+def home():
   return "It worked"
 def log(msg):
   print(str(msg))
