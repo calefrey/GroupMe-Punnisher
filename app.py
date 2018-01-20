@@ -31,7 +31,6 @@ def webhook():
             msg = tag[2]
             time.sleep(2)
             send_message(msg)
-            break
         break
 
   return "ok", 200
