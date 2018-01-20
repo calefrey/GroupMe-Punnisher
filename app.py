@@ -58,7 +58,7 @@ def send_message(msg):
   request = Request(url, urlencode(data).encode())
   json = urlopen(request).read().decode()
   
-@app.route('/', methods=['GET'])
+#@app.route('/', methods=['GET'])
 def home():
   return "You have been PUNNED!"
 def log(msg):
