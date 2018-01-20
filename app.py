@@ -3,6 +3,7 @@ import sys
 import json
 import time
 import random
+import csv
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
