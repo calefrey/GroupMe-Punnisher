@@ -14,7 +14,6 @@ app = Flask(__name__)
 def webhook():
   data = request.get_json()
   log('Recieved {}'.format(data))
-
   # We don't want to reply to ourselves!
   if data['sender_type'] != 'bot':
     inputString = data['text']
@@ -44,6 +43,9 @@ def send_message(msg):
   request = Request(url, urlencode(data).encode())
   json = urlopen(request).read().decode()
   
+@app.route('/home', methods=['GET'])
+def home:
+  return "It worked"
 def log(msg):
   print(str(msg))
   sys.stdout.flush()
