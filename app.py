@@ -23,26 +23,25 @@ def webhook():
     punHolder = []
 
     for line in puns:
-  punHolder.append(line[0].split(','))
+      punHolder.append(line[0].split(','))
+    tagHolder = [row[0] for row in punHolder]
 
-tagHolder = [row[0] for row in punHolder]
-
-for tag in punHolder:
-  if tag[0] in words:
-    if tagHolder.count(tag[0]) > 1:
-      indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
-      rando = random.randint(0,len(indexes) - 1)
-      index = indexes[rando]
-      send_message(punHolder[index][1])
-      if len(punHolder[index]) == 3:
-        send_message(punHolder[index][2])
-      break
-    else:
-      msg = tag[1]
-      send_message(msg)
-      if len(tag) == 3:
-        msg = tag[2]
-        send_message(msg)
+    for tag in punHolder:
+      if tag[0] in words:
+        if tagHolder.count(tag[0]) > 1:
+          indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
+          rando = random.randint(0,len(indexes) - 1)
+          index = indexes[rando]
+          send_message(punHolder[index][1])
+          if len(punHolder[index]) == 3:
+            send_message(punHolder[index][2])
+          break
+        else:
+          msg = tag[1]
+          send_message(msg)
+          if len(tag) == 3:
+            msg = tag[2]
+            send_message(msg)
 
 
   return "ok", 200
