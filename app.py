@@ -26,7 +26,7 @@ def webhook():
           msg = tag[1]
           time.sleep(2)
           send_message(msg)
-          if len(tag)==3
+          if len(tag)==3:
             msg = tag[2]
             time.sleep(2)
             send_message(msg)
