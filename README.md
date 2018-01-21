@@ -14,9 +14,9 @@ I learned how powerful Python really is, even though it is relatively simple, es
 ## What's next for GroupMe Punnisher
 Adding more puns, and maybe allowing one message to trigger multiple puns if there are multiple keywords. Additionally, the bot currently ignores messages in which the keyword ends in punctuation, which may be remedied using RegEx. We can add more features as well, such as different responses based on who sent the message, now that we have the template setup
 
-##Join the Demo Group by following the link below. 
+## Join the Demo Group by following the link below. 
 [GroupMe with the Punnisher](https://groupme.com/join_group/37601736/yjONen)  
 The group will be deleted and the bot moved into its intended group at 5 pm on Sun Jan 21.
 
-##The Team 
+## The Team 
 Matthew Chan, Samuel Minkin, and myself, Caleb Frey
