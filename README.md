@@ -18,5 +18,5 @@ Adding more puns, and maybe allowing one message to trigger multiple puns if the
 [GroupMe with the Punnisher](https://groupme.com/join_group/37601736/yjONen)  
 The group will be deleted and the bot moved into its intended group at 5 pm on Sun Jan 21.
 
-##The Team
+##The Team 
 Matthew Chan, Samuel Minkin, and myself, Caleb Frey
