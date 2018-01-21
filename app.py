@@ -13,49 +13,59 @@ from flask import Flask, request
 app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
+  #when a post is received, excecute the following
   data = request.get_json()
   log('Recieved {}'.format(data))
-  # We don't want to reply to ourselves!
+  # Don't reply to own messages or other bots
   if data['sender_type'] != 'bot':
-    inputString = data['text']
-    words = inputString.lower().split(" ")
+    inputString = data['text'] #Reads in message from GroupMe payload as a string
+    words = inputString.lower().split(" ") 
+    #make it all lowercase and split into individual words
     puns = csv.reader(open('puns.csv'), delimiter = '\n')
+    #read in CSV file of puns
     punHolder = []
 
     for line in puns:
-      punHolder.append(line[0].split(','))
-    tagHolder = [row[0] for row in punHolder]
+      punHolder.append(line[0].split(',')) 
+      #detect the different columns in the CSV by splitting at the commas
+      #and turning them into a 2D array
+    tagHolder = [row[0] for row in punHolder] #Creates a 1D array out of the ta names
 
     for tag in punHolder:
-      if tag[0] in words:
-        if tagHolder.count(tag[0]) > 1:
+      if tag[0] in words: #look for a tag in the message text
+        if tagHolder.count(tag[0]) > 1: #Counts how many identical tags there are
+          #randomly choose one of the matches
           indexes = [i for i, x in enumerate(tagHolder) if x == tag[0]]
           rando = random.randint(0,len(indexes) - 1)
           index = indexes[rando]
-          send_message(punHolder[index][1])
-          if len(punHolder[index]) == 3:
-            send_message(punHolder[index][2])
+
+          send_message(punHolder[index][1]) #send the first part of the pun
+          if len(punHolder[index]) == 3:    #if there is a second line to the pun
+            send_message(punHolder[index][2]) #send the second line
           break
-        else:
-          msg = tag[1]
-          send_message(msg)
-          if len(tag) == 3:
-            msg = tag[2]
-            send_message(msg)
-
-
+        else: #if there is only one matching pun
+          send_message(tag[1])
+          if len(tag) == 3: #check for a second part of the pun
+            send_message(tag[2]) #send the second part
+  
   return "ok", 200
 
 def send_message(msg):
-  time.sleep(2)
-  url  = 'https://api.groupme.com/v3/bots/post'
+  time.sleep(random.randint(0,5)) 
+  #have a delay so that it seems like the bot is thinking and doesn't respond too fast
+  url  = 'https://api.groupme.com/v3/bots/post' #destination
 
   data = {
-          'bot_id' : os.getenv('GROUPME_BOT_ID'),
-          'text'   : msg,
+          'bot_id' : os.getenv('GROUPME_BOT_ID'), 
+          #ID tored as an environmental variable in Heroku to protect the innocent
+          'text'   : msg, #The reply
          }
   request = Request(url, urlencode(data).encode())
   json = urlopen(request).read().decode()
+
+@app.route('/', methods=['GET'])
+def homepage():                 #Nobody should be visiting that URL anyway
+      return "You got Punned!"  #but it's not longer an error
 
 def log(msg):
   print(str(msg))
