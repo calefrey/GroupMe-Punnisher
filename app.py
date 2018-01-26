@@ -17,7 +17,7 @@ def webhook():
   data = request.get_json()
   log('Recieved {}'.format(data))
   # Don't reply to own messages or other bots
-  if data['sender_type'] != 'bot':
+  if data['sender_type'] != 'bot' and random.randint(0,1):
     inputString = data['text'] #Reads in message from GroupMe payload as a string
     words = inputString.lower().split(" ") 
     #make it all lowercase and split into individual words
