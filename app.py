@@ -4,6 +4,7 @@ import json
 import time
 import random
 import csv
+from bees import script
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -19,14 +20,17 @@ def webhook():
   # Don't reply to own messages or other bots
   if data['sender_type'] != 'bot' and random.randint(0,100)<15: #30% chance of replying
     inputString = data['text'] #Reads in message from GroupMe payload as a string
-    words = inputString.lower().split(" ") 
+    words = inputString.lower().split(" ")
+    if "bees" in words:
+        send_message(script)
+        return
     #make it all lowercase and split into individual words
     puns = csv.reader(open('puns.csv'), delimiter = '\n')
     #read in CSV file of puns
     punHolder = []
 
     for line in puns:
-      punHolder.append(line[0].split(',')) 
+      punHolder.append(line[0].split(','))
       #detect the different columns in the CSV by splitting at the commas
       #and turning them into a 2D array
     tagHolder = [row[0] for row in punHolder] #Creates a 1D array out of the ta names
@@ -47,16 +51,16 @@ def webhook():
           send_message(tag[1])
           if len(tag) == 3: #check for a second part of the pun
             send_message(tag[2]) #send the second part
-  
+
   return "ok", 200
 
 def send_message(msg):
-  time.sleep(random.randint(0,5)) 
+  time.sleep(random.randint(0,5))
   #have a delay so that it seems like the bot is thinking and doesn't respond too fast
   url  = 'https://api.groupme.com/v3/bots/post' #destination
 
   data = {
-          'bot_id' : os.getenv('GROUPME_BOT_ID'), 
+          'bot_id' : os.getenv('GROUPME_BOT_ID'),
           #ID tored as an environmental variable in Heroku to protect the innocent
           'text'   : msg, #The reply
          }

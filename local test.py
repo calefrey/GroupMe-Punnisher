@@ -3,9 +3,13 @@ import sys
 import time
 import random
 import csv
+from bees import script
 
 def run(inputString):
     words = inputString.lower().split(" ")
+    if "bees" in words:
+        send_message(script)
+        return
     #make it all lowercase and split into individual words
     puns = csv.reader(open('puns.csv'), delimiter = '\n')
     #read in CSV file of puns
