@@ -21,7 +21,7 @@ def webhook():
   if data['sender_type'] != 'bot' and random.randint(0,100)<15: #30% chance of replying
     inputString = data['text'] #Reads in message from GroupMe payload as a string
     words = inputString.lower().split(" ")
-    if "bees" in words:
+    if "bees" in words and random.randint(0,1000)<1:
         send_message(script)
         return
     #make it all lowercase and split into individual words

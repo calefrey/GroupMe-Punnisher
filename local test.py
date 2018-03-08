@@ -7,7 +7,7 @@ from bees import script
 
 def run(inputString):
     words = inputString.lower().split(" ")
-    if "bees" in words:
+    if "bees" in words and random.randint(0,1000)<1:
         send_message(script)
         return
     #make it all lowercase and split into individual words
